@@ -1,5 +1,7 @@
 package com.example.kevin.xy_demo;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,10 +10,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends Activity implements SensorEventListener,View.OnClickListener{
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private Bundle bundle;
@@ -32,31 +36,34 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        bundle = new Bundle();
-
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.layout);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(500, 300);
-        params.setMargins(80, 80, 80, 80);
-        mCoordinates = new Coordinates(this);
-        mCoordinates.setLayoutParams(params);
-        relativeLayout.addView(mCoordinates);
-        //开启线程
-        new Thread(new GameThread()).start();
+        findViewById(R.id.btnMsensor).setOnClickListener(this);
+        findViewById(R.id.btnGsensor).setOnClickListener(this);
+//        setContentView(R.layout.layout);
+//        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        bundle = new Bundle();
+//
+//        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.layout);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(500, 300);
+//        //params.setMargins(80, 80, 80, 80);
+//        mCoordinates = new Coordinates(this);
+//        mCoordinates.setLayoutParams(params);
+//        relativeLayout.addView(mCoordinates);
+//        //开启线程
+//        new Thread(new GameThread()).start();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mSensorManager.unregisterListener(this);
+//        mSensorManager.unregisterListener(this);
     }
 
     /**
@@ -66,19 +73,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int x = (int) event.values[0];
-        int y = (int) event.values[1];
-        int z = (int) event.values[2];
+        float x =  event.values[0];
+        float y =  event.values[1];
+        float z =  event.values[2];
 
 
-        bundle.putInt("x", x);
-        bundle.putInt("y", y);
-        bundle.putInt("z", z);
+        bundle.putFloat("x", x);
+        bundle.putFloat("y", y);
+        bundle.putFloat("z", z);
 
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnGsensor:
+                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnMsensor:
+                break;
+        }
 
     }
 

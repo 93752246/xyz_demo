@@ -16,7 +16,7 @@ import android.view.View;
  * @ClassName : CoordinatesView
  */
 public class Coordinates extends View {
-    private int x1, y1, z1;
+    private float x1, y1, z1;
 
 
     /*
@@ -78,24 +78,26 @@ public class Coordinates extends View {
 
         // 画坐标轴
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
-            // 画直线
-            canvas.drawLine(centerX, centerY, centerX+150, centerY, paint);
-            canvas.drawLine(centerX, centerY, centerX,  centerY-150, paint);
-            // 画X轴箭头
-            int x = 155 + centerX, y = centerY;
-            drawTriangle(canvas, new Point(x, y), new Point(x - 40, y - 30),
-                    new Point(x - 40, y + 30));
-
-            x = centerX;
-            y = centerY - 155;
-            drawTriangle(canvas, new Point(x, y), new Point(x - 30, y + 40),
-                    new Point(x + 30, y + 40));
+//            canvas.drawColor(Color.WHITE);
+//            // 画直线
+//            canvas.drawLine(centerX, centerY, centerX+150, centerY, paint);
+//            canvas.drawLine(centerX, centerY, centerX,  centerY-150, paint);
+//            // 画X轴箭头
+//            int x = 155 + centerX, y = centerY;
+//            drawTriangle(canvas, new Point(x, y), new Point(x - 40, y - 30),
+//                    new Point(x - 40, y + 30));
+//
+//            x = centerX;
+//            y = centerY - 155;
+//            drawTriangle(canvas, new Point(x, y), new Point(x - 30, y + 40),
+//                    new Point(x + 30, y + 40));
 
             paint.setStrokeWidth(6);
             paint.setTextSize(40);
             paint.setColor(Color.GRAY);
-            canvas.drawText("X: " + x1 + " Y: " + y1 + " Z: " + z1, centerX-40, centerY + 80, paint);
+            canvas.drawText("X : " + String.valueOf(x1) , centerX-40, centerY , paint);
+            canvas.drawText("Y: " + String.valueOf(y1) ,centerX-40, centerY + 60, paint);
+            canvas.drawText("Z: " + String.valueOf(z1),centerX-40, centerY + 60 * 2, paint);
         }
 
 
@@ -104,14 +106,14 @@ public class Coordinates extends View {
              * TODO 画数据 所有外部需要在坐标轴上画的数据，都在这里进行绘制
              */
 
-            paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(3);
-            canvas.drawCircle(centerX + 50, centerY - 50, 10, paint);
-
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setAntiAlias(true);
-            paint.setStrokeWidth(6);
-            canvas.drawCircle(centerX + 50, centerY - 50, 30, paint);
+//            paint.setColor(Color.BLACK);
+//            paint.setStrokeWidth(3);
+//            canvas.drawCircle(centerX + 50, centerY - 50, 10, paint);
+//
+//            paint.setStyle(Paint.Style.STROKE);
+//            paint.setAntiAlias(true);
+//            paint.setStrokeWidth(6);
+//            canvas.drawCircle(centerX + 50, centerY - 50, 30, paint);
 
         }
 
@@ -136,9 +138,9 @@ public class Coordinates extends View {
     }
 
     public void setData(Bundle bundle){
-        x1 = bundle.getInt("x");
-        y1 = bundle.getInt("y");
-        z1 = bundle.getInt("z");
+        x1 = bundle.getFloat("x");
+        y1 = bundle.getFloat("y");
+        z1 = bundle.getFloat("z");
         Log.i("三轴加速数据---->","X = "+x1+", Y = "+y1+", Z = "+z1);
     }
 

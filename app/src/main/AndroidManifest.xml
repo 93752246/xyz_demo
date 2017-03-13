@@ -8,13 +8,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
+
+        </activity>
+        <activity
+            android:name=".Main2Activity"
+            android:label="传感器测试">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Main3Activity"
+            android:label="@string/title_activity_main3" />
+        <activity
+            android:name=".MSensorActivity"
+            android:label="@string/title_activity_msensor"></activity>
     </application>
 
 </manifest>
